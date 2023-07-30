@@ -97,16 +97,16 @@
 
 
 
-
-<!-- <script>
-    
+<!-- Vaš postojeći JavaScript kod -->
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         const deleteButtons = document.querySelectorAll('.delete-btn');
-        
+
         deleteButtons.forEach((button) => {
             button.addEventListener('click', function () {
                 const userId = this.getAttribute('data-id');
-                
+
+                // Izvrši AJAX zahtev za brisanje korisnika
                 fetch(`/admin/${userId}`, {
                     method: 'DELETE',
                     headers: {
@@ -118,12 +118,16 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                       
-                        alert('User deleted successfully!');
-                        window.location.reload(); 
+                        // Ako je brisanje uspelo, prikaži uspešnu Toast notifikaciju
+                        const successToast = new bootstrap.Toast(document.querySelector('.toast.bg-success'));
+                        successToast.show();
+                        window.location.reload(); // Ažuriraj stranicu
                     } else {
-                        
-                        alert(data.message);
+                        // Ako je brisanje neuspešno, prikaži Toast notifikaciju o grešci
+                        const errorToast = new bootstrap.Toast(document.querySelector('.toast.bg-danger'));
+                        const errorMessage = data.message ? data.message : 'An error occurred while deleting user.';
+                        errorToast.querySelector('.toast-body').innerText = errorMessage;
+                        errorToast.show();
                     }
                 })
                 .catch(error => {
@@ -131,8 +135,10 @@
                 });
             });
         });
-    }); -->
-</script> -->
+    });
+</script>
+
+
 
 
 
