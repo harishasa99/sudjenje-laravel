@@ -53,7 +53,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('courses.index') }}">{{ __('Courses') }}</a>
                         </li>
-                        @if(Auth::check() && Auth::user()->type == 'predavac')
+                        @if(Auth::check() && Auth::user()->type == 'teacher')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('teacher.index') }}">{{ __('Teacher') }}</a>
                         </li>

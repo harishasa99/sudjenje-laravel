@@ -34,7 +34,7 @@ Route::middleware(['type:admin'])->group(function () {
     Route::post('/admin/notification', [App\Http\Controllers\AdminController::class, 'notification'])->name('admin.notification');
 });
 
-Route::middleware(['type:predavac'])->group(function () {
+Route::middleware(['type:teacher'])->group(function () {
     Route::get('/teacher', [App\Http\Controllers\TeachersController::class, 'index'])->name('teacher.index');
 
     Route::get('/teacher/courses/create', [App\Http\Controllers\CoursesController::class, 'create'])->name('courses.create');

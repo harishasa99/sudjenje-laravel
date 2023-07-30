@@ -97,49 +97,6 @@
 
 
 
-<!-- Vaš postojeći JavaScript kod -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const deleteButtons = document.querySelectorAll('.delete-btn');
-
-        deleteButtons.forEach((button) => {
-            button.addEventListener('click', function () {
-                const userId = this.getAttribute('data-id');
-
-                // Izvrši AJAX zahtev za brisanje korisnika
-                fetch(`/admin/${userId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Ako je brisanje uspelo, prikaži uspešnu Toast notifikaciju
-                        const successToast = new bootstrap.Toast(document.querySelector('.toast.bg-success'));
-                        successToast.show();
-                        window.location.reload(); // Ažuriraj stranicu
-                    } else {
-                        // Ako je brisanje neuspešno, prikaži Toast notifikaciju o grešci
-                        const errorToast = new bootstrap.Toast(document.querySelector('.toast.bg-danger'));
-                        const errorMessage = data.message ? data.message : 'An error occurred while deleting user.';
-                        errorToast.querySelector('.toast-body').innerText = errorMessage;
-                        errorToast.show();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        });
-    });
-</script>
-
-
-
 
 
 
