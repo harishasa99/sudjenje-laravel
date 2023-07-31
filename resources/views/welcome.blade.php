@@ -116,7 +116,7 @@
                 <strong>Email:</strong> info@fiba.basketball<br>
             </p>
 
-            <!-- Dodajemo društvene mreže kao ikone -->
+            
             <div class="social-icons mt-4">
                 <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
