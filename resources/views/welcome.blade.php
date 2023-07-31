@@ -99,31 +99,37 @@
 
 
 </div>
-<div class="footer bg-black p-4">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-12 col-md-12 footer-info d-flex flex-wrap">
-                <div class="col-6 d-flex">
-                    <a href="#" class="logo d-flex align-items-center gap-3 text-decoration-none col-lg-9 col-md-12 justify-content-center">
-                        <img src="{{asset('images/fiba-logo.jpg')}}" alt="" width="100px" height="100px">
-                        <h3 class="text-white mb-0">FIBA</h3>
-                    </a>
-                </div>
 
-                <div class="col-lg-4 col-md-12 footer-contact text-center text-md-start d-flex flex-column align-items-end">
-                    <h4 class="text-white">Contact Us</h4>
-                    <p class="text-white mb-0">
-                        FIBA - International Basketball Federation <br>
-                        Route Suisse 5<br>
-                        1295 Mies - Switzerland <br><br>
-                        <strong>Phone:</strong> +41 22 545 00 00<br>
-                        <strong>Email:</strong> info@fiba.basketball<br>
-                    </p>
-                </div>
+<div class="footer bg-black text-white p-4 d-flex justify-content-center align-items-center">
+        <a href="#" class="logo d-flex align-items-center gap-3 text-decoration-none">
+            <img src="{{asset('images/fiba-logo.jpg')}}" alt="" width="100px" height="100px">
+            <h3 class="text-white mb-0">FIBA</h3>
+        </a>
+
+        <div class="col-lg-4 col-md-12 footer-contact">
+            <h4 class="text-white">Contact Us</h4>
+            <p class="text-white mb-0">
+                FIBA - International Basketball Federation <br>
+                Route Suisse 5<br>
+                1295 Mies - Switzerland <br><br>
+                <strong>Phone:</strong> +41 22 545 00 00<br>
+                <strong>Email:</strong> info@fiba.basketball<br>
+            </p>
+
+            <!-- Dodajemo društvene mreže kao ikone -->
+            <div class="social-icons mt-4">
+                <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-linkedin"></i></a>
             </div>
         </div>
     </div>
-</div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
 
 
 
