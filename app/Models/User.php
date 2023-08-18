@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\URL;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -136,23 +137,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(AnswersUser::class, 'user_id', 'jmbg');
     }
 
-    // protected static function booted()
-    // {
-    //     static::deleting(function ($user) {
-    //         if ($user->lessons()->count() > 0) {
-              
-    //             throw new \Exception('Cannot delete user with associated lessons.');
-    //         }
 
-    //         if ($user->courses()->count() > 0) {
-    //             throw new \Exception('Cannot delete user with associated courses.');
-    //         }
+    protected $appends = ['verification_url'];
 
-    //         $userLessonCourses = \DB::table('lessons')->where('user_id', $user->jmbg)->count();
-    //         if ($userLessonCourses > 0) {
-    //             throw new \Exception('Cannot delete user with associated lesson_course records.');
-    //         }
-    //     });
-    // }
+    public function getVerificationUrlAttribute()
+    {
+        return URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(config('auth.verification.expire', 60)),
+            [
+                'id' => $this->getKey(),
+                'hash' => sha1($this->getEmailForVerification()),
+            ]
+        );
+    }
 
 }
