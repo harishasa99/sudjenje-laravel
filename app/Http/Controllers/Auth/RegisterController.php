@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\AuthenticationException;
 use CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\AuthenticationEmail;
+
 
 
 class RegisterController extends Controller
@@ -126,7 +125,7 @@ class RegisterController extends Controller
             throw new AuthenticationException();
         }
 
-        Mail::to($user->email)->send(new AuthenticationEmail($user));
+        
 
     
         return $user;
