@@ -93,7 +93,7 @@ class RegisterController extends Controller
         }
     
         // Provera tipa korisnika
-        if ($data['type'] == 'admin' || $data['type'] == 'korisnik') {
+        if ($data['type'] == 'admin' || $data['type'] == 'user') {
             $verified = true;
         } else {
             $verified = false;
@@ -120,7 +120,7 @@ class RegisterController extends Controller
         ]);
     
         // Provera za događaj za potvrdu email adrese za predavače
-        if ($user->type == 'predavac' && $user->email_verified_at == null) {
+        if ($user->type == 'teacher' && $user->email_verified_at == null) {
             event(new Registered($user));
             throw new AuthenticationException();
         }
