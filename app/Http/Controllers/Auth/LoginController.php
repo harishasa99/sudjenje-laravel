@@ -31,7 +31,7 @@ class LoginController extends Controller
     {
         if (auth()->user()->type == 'admin') {
             return '/admin';
-        } else if (auth()->user()->type == 'predavac') {
+        } else if (auth()->user()->type == 'teacher') {
             return '/teacher';
         } else {
             return '/';
