@@ -20,7 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(
+    ['verify' => true]
+);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -76,7 +78,7 @@ Route::post('/teacher/test/check/{id}', [App\Http\Controllers\TestController::cl
 Route::get('/teacher/test/results/{id}', [App\Http\Controllers\TestController::class, 'results'])->name('test.results');
 Route::get('/courses', [App\Http\Controllers\CoursesController::class, 'index'])->name('courses.index');
 Route::get('/menu/test/results/{id}', [App\Http\Controllers\TestController::class, 'userResults'])->name('test.userResults');
-
+Route::get('/send-email', [MailController::class, 'sendMail']);
 
 
 
