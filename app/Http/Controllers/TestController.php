@@ -150,48 +150,69 @@ class TestController extends Controller
         return redirect()->back()->with('message', 'Test is successfully deleted!');
     }
 
-    public function check(){
-
-        $test = Test::findOrfail(request('id'));
+    public function check()
+{
+    try {
+        $test = Test::findOrFail(request('id'));
         $questions = $test->questions;
-        $correctAnswers = $questions->map(function($question){
-            return $question->answers->where('is_correct', true)->first()->id;
+        
+        // Check if $questions is empty (no questions found)
+        if ($questions->isEmpty()) {
+            throw new \Exception('No questions found for this test.');
+        }
+
+        $correctAnswers = $questions->map(function ($question) {
+            // Check if answers for this question are empty (no answers found)
+            if ($question->answers->isEmpty()) {
+                throw new \Exception('No answers found for a question.');
+            }
+
+            $correctAnswer = $question->answers->where('is_correct', true)->first();
+            if ($correctAnswer) {
+                return $correctAnswer->id;
+            } else {
+                throw new \Exception('No correct answer found for a question.');
+            }
         });
 
         $userAnswers = collect(request('answers'));
-
         $helpNumber = request('helpNumber');
 
-        $answers = $test->questions->map(function($question){
-            return $question->answers;
-        });
-        
         $correct = 0;
         $wrong = 0;
         $notAnswered = 0;
-        for($i = 0; $i < $correctAnswers->count(); $i++){
+
+        for ($i = 0; $i < $correctAnswers->count(); $i++) {
             AnswersUser::create([
                 'user_id' => auth()->user()->jmbg,
-                'answer_id' => $userAnswers[$i]??false,
+                'answer_id' => $userAnswers[$i] ?? false,
             ]);
-            if($correctAnswers[$i] == ($userAnswers[$i]??false)){
+
+            if ($correctAnswers[$i] == ($userAnswers[$i] ?? false)) {
                 $correct++;
-            }else if($userAnswers[$i]??false){
+            } elseif ($userAnswers[$i] ?? false) {
                 $notAnswered++;
-            }else{
+            } else {
                 $wrong++;
             }
         }
 
         $overallScore = ($correct * 2) - $helpNumber;
 
-        $result = Result::where('user_id', auth()->user()->jmbg)->where('test_id', request('id'))->first();
+        $result = Result::where('user_id', auth()->user()->jmbg)
+            ->where('test_id', request('id'))
+            ->firstOrFail(); // Use firstOrFail to throw an exception if not found
+
         $result->score = $overallScore;
         $result->helps = $helpNumber;
         $result->save();
-        return view('test.result', compact('test', 'questions', 'userAnswers', 'correctAnswers', 'result'));
 
+        return view('test.result', compact('test', 'questions', 'userAnswers', 'correctAnswers', 'result'));
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
     }
+}
+
 
     public function showResults(int $user_id, int $test_id){
         try{
